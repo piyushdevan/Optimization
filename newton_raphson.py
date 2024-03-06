@@ -5,22 +5,16 @@ from matplotlib.animation import FuncAnimation
 
 # Function defination
 def get_user_defined_function():
-    try:
-        user_input = input("Enter the function definition : ")
-        if user_input:
+    user_input = input("Enter the function definition : ")
+    if user_input:
 
-            def f1(x):
+        def f(x):
+            try:
                 return eval(user_input)
+            except:
+                return 2 * (x**2) + (16 / x)
 
-            return f1
-
-    except:
-        print("Function defination is not valid\n use example function")
-
-        def f2(x):
-            return 2 * (x**2) + (16 / x)
-
-        return f2
+        return f
 
 
 # First order derivative
@@ -38,8 +32,9 @@ def newton_raphson(start, epsilon, ans=None, itr=1):
     if ans is None:
         ans = []
 
-    if itr > 15:
+    if itr > 25:
         print("Not Converging\nTherefore Quiting\nTry another Starting point ")
+        return ans
 
     print(itr, start)
     ans.append([itr, start])
@@ -77,7 +72,7 @@ def visualize(ans):
         frames=len(ans),
         fargs=(ans, scat, x_values, y_values),
         interval=1000,
-        repeat=False,
+        repeat=True,
     )
 
     plt.xlabel("x")
